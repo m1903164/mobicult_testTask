@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import SettingView from '@/views/SettingsView.vue'
+
+import settingRoutes from './settings/routes.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,11 +11,14 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: SettingView
-    }
+
+      ...settingRoutes
+
+    // {
+    //   path: '/settings',
+    //   name: 'settings',
+    //   component: SettingView
+    // }
   ]
 })
 
