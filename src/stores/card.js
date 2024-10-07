@@ -21,11 +21,21 @@ export const useCardStore = defineStore('card', () => {
 
   const createNewCard = (data) => {
     console.log(data)
+
+    const newCard = {
+      id: cardList.length + 1,
+      text: data.cardTitle,
+      description: data.cardDescription
+    }
+
+    cardList.push(newCard)
   }
 
 
   return {
     cardList,
-    dataForTable
+    dataForTable,
+
+    createNewCard
   }
 })

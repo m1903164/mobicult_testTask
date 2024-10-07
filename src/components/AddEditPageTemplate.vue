@@ -1,34 +1,32 @@
 <script setup>
-import { useCardStore } from '@/stores/card.js'
-
-const cardStore = useCardStore()
+import ControllButton from '@/components/ControllButton.vue'
 
 const props = defineProps({
   pageTitle: {
     type: String,
     default: ''
   },
-  buttonTitle: {
-    type: String,
-    default: ''
+  controlButtonsLayout: {
+    type: Object,
+    default: () => {},
   },
 })
-
-defineEmits(['addCard', ])
-
-const saveChanges = () => {
-  cardStore.createNewCard()
-}
 
 </script>
 
 <template>
   <div class="page-container">
     <div class="page-header">
-      <h3 class="page-header__title">{{ pageTitle }}</h3>
+      <h3 class="page-header__title">{{ props.pageTitle }}</h3>
       <div class="header-buttons">
-        <el-button @click="saveChanges">{{ buttonTitle }}</el-button>
-        <el-button>Назад</el-button>
+        <ControllButton
+            v-for="button in controlButtonsLayout"
+            :title='button.title'
+            :type='button.type'
+            :plain='button.plain'
+
+            @click='button.click'
+        />
       </div>
     </div>
     <div class="page-mainContainer">
