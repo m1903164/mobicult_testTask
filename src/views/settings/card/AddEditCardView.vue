@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from "vue"
+import {ref, reactive, onMounted} from "vue"
 
 import AddEditPageTemplate from '@/components/AddEditPageTemplate.vue'
 import { useRoute } from 'vue-router'
@@ -8,6 +8,16 @@ const route = useRoute()
 
 const pageTitle = ref('')
 const buttonTitle = ref()
+
+const formData = reactive({
+  cardId: 0,
+  cardTitle: '',
+  cardDescriotion: '',
+})
+
+const addCard = () => {
+  cardStore.createNewCard(formData)
+}
 
 onMounted(() => {
   switch(true) {
@@ -27,13 +37,15 @@ onMounted(() => {
   <AddEditPageTemplate
     :pageTitle="pageTitle"
     :buttonTitle = 'buttonTitle'
+
+    @addCard="addCard"
   >
     <el-form>
       <el-form-item label="Название">
-        <el-input/>
+        <el-input v-model="formData.cardTitle"/>
       </el-form-item>
       <el-form-item label="Описание">
-        <el-input/>
+        <el-input v-model="formData.cardDescriotion"/>
       </el-form-item>
     </el-form>
   </AddEditPageTemplate>

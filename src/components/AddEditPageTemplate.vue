@@ -1,4 +1,7 @@
 <script setup>
+import { useCardStore } from '@/stores/card.js'
+
+const cardStore = useCardStore()
 
 const props = defineProps({
   pageTitle: {
@@ -9,8 +12,13 @@ const props = defineProps({
     type: String,
     default: ''
   },
-
 })
+
+defineEmits(['addCard', ])
+
+const saveChanges = () => {
+  cardStore.createNewCard()
+}
 
 </script>
 
@@ -19,7 +27,7 @@ const props = defineProps({
     <div class="page-header">
       <h3 class="page-header__title">{{ pageTitle }}</h3>
       <div class="header-buttons">
-        <el-button>{{ buttonTitle }}</el-button>
+        <el-button @click="saveChanges">{{ buttonTitle }}</el-button>
         <el-button>Назад</el-button>
       </div>
     </div>

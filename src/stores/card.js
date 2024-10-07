@@ -19,6 +19,10 @@ export const useCardStore = defineStore('card', () => {
     return cardList
   })
 
+  const createNewCard = (data) => {
+    console.log(data)
+  }
+
 
   return {
     cardList,
