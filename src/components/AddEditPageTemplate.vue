@@ -1,5 +1,5 @@
 <script setup>
-import ControllButton from '@/components/ControllButton.vue'
+import ControlButton from '@/components/ControlButton.vue'
 
 const props = defineProps({
   pageTitle: {
@@ -19,7 +19,7 @@ const props = defineProps({
     <div class="page-header">
       <h3 class="page-header__title">{{ props.pageTitle }}</h3>
       <div class="header-buttons">
-        <ControllButton
+        <ControlButton
             v-for="button in controlButtonsLayout"
             :title='button.title'
             :type='button.type'

@@ -10,16 +10,20 @@ const route = useRoute()
 const cardStore = useCardStore()
 
 const controlButtonsLayout = reactive({
-  addButton: {
+  saveButton: {
     title: 'Сохранить',
     type: 'primary',
     plain: true,
-    click: addButton
+    click() {
+      saveButton()
+    },
   },
   backButton: {
     title: 'Назад',
     plain: true,
-    click: backButton
+    click() {
+      backButton()
+    },
   }
 })
 
@@ -32,24 +36,42 @@ const formData = reactive({
   cardDescription: '',
 })
 
-function addButton() {
-  cardStore.createNewCard(formData)
+const getDataById = () => {
+  const cardId = parseInt(route.params.id)
+
+  const card = cardStore.cardList.find(card => card.id === cardId)
+
+  if (card) {
+    formData.cardId = card.id
+    formData.cardTitle = card.text
+    formData.cardDescription = card.description
+  }
+}
+
+const saveButton = () =>  {
+  switch (route.name) {
+    case 'settingsAddCard':
+      cardStore.createNewCard(formData)
+      break
+    case 'settingsEditCard':
+      cardStore.editCardById(formData)
+      break
+  }
 
   router.push({name: 'settingCard'})
 }
-function backButton() {
+const backButton = () => {
   router.go(-1)
 }
 
 onMounted(() => {
-  switch(true) {
-    case route.name === 'settingsAddCard':
+  switch(route.name) {
+    case 'settingsAddCard':
       pageTitle.value = 'Добавить картчоку:'
-      buttonTitle.value = 'Добавить'
       break
-    case route.name === 'settingsEditCard':
+    case 'settingsEditCard':
       pageTitle.value = 'Редактировать картчоку:'
-      buttonTitle.value = 'Изменить'
+      getDataById()
       break
   }
 })

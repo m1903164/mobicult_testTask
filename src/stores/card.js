@@ -4,12 +4,12 @@ import {computed, reactive} from "vue"
 export const useCardStore = defineStore('card', () => {
   const cardList = reactive([
     {
-      id: 0,
+      id: 1,
       text: 'Тестовая картока 1',
       description: 'description1'
     },
     {
-      id: 1,
+      id: 2,
       text: 'Тестовая картока 2',
       description: 'description2'
     }
@@ -31,11 +31,30 @@ export const useCardStore = defineStore('card', () => {
     cardList.push(newCard)
   }
 
+  const editCardById = (data) => {
+    const card = cardList.find(card => card.id === data.cardId)
+
+    if (card) {
+      card.text = data.cardTitle
+      card.description = data.cardDescription
+    }
+  }
+
+  const deleteCardById = (id) => {
+    const cardIndex = cardList.findIndex(card => card.id === id)
+
+    if (cardIndex !== -1) {
+      cardList.splice(cardIndex, 1)
+    }
+  }
+
 
   return {
     cardList,
     dataForTable,
 
-    createNewCard
+    createNewCard,
+    editCardById,
+    deleteCardById
   }
 })

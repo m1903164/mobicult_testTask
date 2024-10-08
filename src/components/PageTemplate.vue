@@ -1,7 +1,9 @@
 <script setup>
-import {ref, onMounted, computed} from "vue"
+import {ref, onMounted, reactive} from "vue"
 
+import ControlButton from './ControlButton.vue'
 import { useRouter } from 'vue-router'
+import { useCardStore } from "@/stores/card.js"
 
 const props = defineProps({
   pageTitle: {
@@ -16,23 +18,69 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const cardStore = useCardStore()
 
-const isRowSelected = computed(() => {
-  if(Object.keys(currentRow.value).length) return false
-
-  return true
+const controlButtonsLayout = reactive({
+  addButton: {
+    title: 'Добавить',
+    type: 'primary',
+    plain: true,
+    disabled: false,
+    click() {
+      addButton()
+    },
+  },
+  editButton: {
+    title: 'Изменить',
+    plain: true,
+    disabled: true,
+    click() {
+      editButton()
+    },
+  },
+  deleteButton: {
+    title: 'Удалить',
+    plain: true,
+    disabled: true,
+    click() {
+      deleteButton()
+    },
+  },
 })
 
 const currentRow = ref({})
 
 const rowSelected = (row) => {
   currentRow.value = row
+  setControlButtonsPermissions()
 
   console.log(currentRow.value)
 }
 
-const addCard = () => {
+const setControlButtonsPermissions = () => {
+  controlButtonsLayout.editButton.disabled = false
+  controlButtonsLayout.deleteButton.disabled = false
+
+  switch (true) {
+    case !currentRow.value || !(Object.keys(currentRow.value).length):
+      controlButtonsLayout.editButton.disabled = true
+      controlButtonsLayout.deleteButton.disabled = true
+  }
+}
+
+const addButton = () => {
   router.push({ name: 'settingsAddCard' })
+}
+const editButton = () => {
+  router.push({
+    name: 'settingsEditCard',
+    params: {
+      id: currentRow.value.id,
+    }
+  })
+}
+const deleteButton = () => {
+  cardStore.deleteCardById(currentRow.value.id)
 }
 
 onMounted(() => {
@@ -46,17 +94,15 @@ onMounted(() => {
     <div class="page-header">
       <h3 class="page-header__title">{{ props.pageTitle }}</h3>
       <div class="header-buttons">
-        <el-button @click="addCard">Добавить</el-button>
-        <el-button
-            :disabled="isRowSelected"
-        >
-          Редактировать
-        </el-button>
-        <el-button
-            :disabled="isRowSelected"
-        >
-          Удалить
-        </el-button>
+        <ControlButton
+            v-for="button in controlButtonsLayout"
+            :title='button.title'
+            :type='button.type'
+            :plain='button.plain'
+            :disabled='button.disabled'
+
+            @click='button.click'
+        />
       </div>
     </div>
     <div class="page-mainContainer">
