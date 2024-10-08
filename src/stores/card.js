@@ -12,6 +12,21 @@ export const useCardStore = defineStore('card', () => {
       id: 2,
       text: 'Тестовая картока 2',
       description: 'description2'
+    },
+    {
+      id: 3,
+      text: 'Тестовая картока 2',
+      description: 'description2'
+    },
+    {
+      id: 4,
+      text: 'Тестовая картока 2',
+      description: 'description2'
+    },
+    {
+      id: 5,
+      text: 'Тестовая картока 2',
+      description: 'description2'
     }
   ])
 
