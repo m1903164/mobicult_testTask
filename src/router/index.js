@@ -13,12 +13,6 @@ const router = createRouter({
     },
 
       ...settingRoutes
-
-    // {
-    //   path: '/settings',
-    //   name: 'settings',
-    //   component: SettingView
-    // }
   ]
 })
 

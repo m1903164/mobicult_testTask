@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, reactive} from "vue"
+import {ref, reactive} from "vue"
 
 import ControlButton from './ControlButton.vue'
 import { useRouter } from 'vue-router'
@@ -55,8 +55,6 @@ const currentRow = ref({})
 const rowSelected = (row) => {
   currentRow.value = row
   setControlButtonsPermissions()
-
-  console.log(currentRow.value)
 }
 
 const setControlButtonsPermissions = () => {
@@ -84,10 +82,6 @@ const editButton = () => {
 const deleteButton = () => {
   cardStore.deleteCardById(currentRow.value.id)
 }
-
-onMounted(() => {
-  console.log(props.tableData)
-})
 
 </script>
 

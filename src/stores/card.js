@@ -35,8 +35,6 @@ export const useCardStore = defineStore('card', () => {
   })
 
   const createNewCard = (data) => {
-    console.log(data)
-
     const newCard = {
       id: cardList.length + 1,
       text: data.cardTitle,
