@@ -12,7 +12,7 @@ const cardStore = useCardStore()
 const controlButtonsLayout = reactive({
   saveButton: {
     title: 'Сохранить',
-    type: 'primary',
+    type: 'success',
     plain: true,
     click() {
       saveButton()
@@ -20,6 +20,7 @@ const controlButtonsLayout = reactive({
   },
   backButton: {
     title: 'Назад',
+    type: 'info',
     plain: true,
     click() {
       backButton()
@@ -67,10 +68,10 @@ const backButton = () => {
 onMounted(() => {
   switch(route.name) {
     case 'settingsAddCard':
-      pageTitle.value = 'Добавить картчоку:'
+      pageTitle.value = 'Добавить картчоку'
       break
     case 'settingsEditCard':
-      pageTitle.value = 'Редактировать картчоку:'
+      pageTitle.value = 'Редактировать картчоку'
       getDataById()
       break
   }

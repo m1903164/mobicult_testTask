@@ -23,8 +23,8 @@ const cardStore = useCardStore()
 const controlButtonsLayout = reactive({
   addButton: {
     title: 'Добавить',
-    type: 'primary',
-    plain: true,
+    type: 'success',
+    plain: false,
     disabled: false,
     click() {
       addButton()
@@ -32,7 +32,8 @@ const controlButtonsLayout = reactive({
   },
   editButton: {
     title: 'Изменить',
-    plain: true,
+    type: 'warning',
+    plain: false,
     disabled: true,
     click() {
       editButton()
@@ -40,7 +41,8 @@ const controlButtonsLayout = reactive({
   },
   deleteButton: {
     title: 'Удалить',
-    plain: true,
+    type: 'danger',
+    plain: false,
     disabled: true,
     click() {
       deleteButton()
@@ -125,17 +127,29 @@ onMounted(() => {
 <style scoped lang="scss">
 
 .page-header {
+  padding: 0 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //background-color: azure;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dcdfe6;
 }
 
 .header-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media screen and (max-width: 511px) {
+  .page-header {
+    display: block;
+  }
+
+  .header-buttons {
+    display: inline-flex;
+    margin-bottom: 10px;
+  }
 }
 
 </style>

@@ -39,16 +39,26 @@ const props = defineProps({
 
 .page-header {
   padding: 0 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dcdfe6;
+
+  @media screen and (max-width: 511px) {
+    display: block;
+  }
 }
 
 .header-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 511px) {
+    display: inline-flex;
+    margin-bottom: 10px;
+  }
 }
 
 .page-mainContainer {
